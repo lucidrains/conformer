@@ -1,6 +1,6 @@
 ## Conformer
 
-Implementation of the convolutional module from the Conformer paper, for use in Transformers that need a better local inductive bias.
+Implementation of the convolutional module from the <a href="https://arxiv.org/abs/2005.08100">Conformer</a> paper, for use in Transformers that need a better local inductive bias.
 
 ## Citations
 
