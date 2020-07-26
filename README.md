@@ -1,3 +1,5 @@
+<img src="./conformer-conv-module.png" width="600px"></img>
+
 ## Conformer
 
 Implementation of the convolutional module from the <a href="https://arxiv.org/abs/2005.08100">Conformer</a> paper, for improving the local inductive bias in Transformers.
