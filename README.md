@@ -1,2 +1,16 @@
-# conformer
-Implementation of the convolutional module from the Conformer paper, for use in Transformers
+## Conformer
+
+Implementation of the convolutional module from the Conformer paper, for use in Transformers that need a better local inductive bias.
+
+## Citations
+
+```bibtex
+@misc{gulati2020conformer,
+    title={Conformer: Convolution-augmented Transformer for Speech Recognition},
+    author={Anmol Gulati and James Qin and Chung-Cheng Chiu and Niki Parmar and Yu Zhang and Jiahui Yu and Wei Han and Shibo Wang and Zhengdong Zhang and Yonghui Wu and Ruoming Pang},
+    year={2020},
+    eprint={2005.08100},
+    archivePrefix={arXiv},
+    primaryClass={eess.AS}
+}
+```
