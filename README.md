@@ -14,7 +14,7 @@ $ pip install conformer
 
 ```python
 import torch
-from conformer.conformer import ConformerConvModule
+from conformer import ConformerConvModule
 
 layer = ConformerConvModule(
     dim = 512,
@@ -25,7 +25,7 @@ layer = ConformerConvModule(
 )
 
 x = torch.randn(1, 1024, 512)
-layer(x) # (1, 1024, 512)
+x = layer(x) + x
 ```
 
 ## Citations
