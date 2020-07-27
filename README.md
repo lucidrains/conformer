@@ -4,6 +4,29 @@
 
 Implementation of the convolutional module from the <a href="https://arxiv.org/abs/2005.08100">Conformer</a> paper, for improving the local inductive bias in Transformers.
 
+## Install
+
+```bash
+$ pip install conformer
+```
+
+## Usage
+
+```python
+import torch
+from conformer.conformer import ConformerConvModule
+
+layer = ConformerConvModule(
+    dim = 512,
+    expansion_factor = 2,       # what multiple of the dimension to expand for the depthwise convolution
+    kernel_size = 32, 			# kernel size, 17 - 32 was said to be optimal
+    dropout = 0.                # dropout at the very end
+)
+
+x = torch.randn(1, 1024, 512)
+layer(x) # (1, 1024, 512)
+```
+
 ## Citations
 
 ```bibtex
