@@ -6,7 +6,7 @@ import torch.nn.functional as F
 
 def calc_same_padding(kernel_size):
     pad = kernel_size // 2
-    return (pad, pad + (kernel_size + 1) % 2)
+    return (pad, pad - (kernel_size + 1) % 2)
 
 # helper classes
 

@@ -20,7 +20,7 @@ layer = ConformerConvModule(
     dim = 512,
     causal = False,             # auto-regressive or not - 1d conv will be made causal with padding if so
     expansion_factor = 2,       # what multiple of the dimension to expand for the depthwise convolution
-    kernel_size = 32,           # kernel size, 17 - 32 was said to be optimal
+    kernel_size = 31,           # kernel size, 17 - 31 was said to be optimal
     dropout = 0.                # dropout at the very end
 )
 
