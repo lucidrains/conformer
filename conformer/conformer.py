@@ -37,12 +37,10 @@ class DepthWiseConv1d(nn.Module):
         super().__init__()
         self.padding = padding
         self.conv = nn.Conv1d(chan_in, chan_out, kernel_size, groups = chan_in)
-        self.conv_out = nn.Conv1d(chan_out, chan_out, 1)
 
     def forward(self, x):
         x = F.pad(x, self.padding)
-        x = self.conv(x)
-        return self.conv_out(x)
+        return self.conv(x)
 
 # main class
 

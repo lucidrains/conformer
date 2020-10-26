@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'conformer',
   packages = find_packages(),
-  version = '0.0.3',
+  version = '0.1.0',
   license='MIT',
   description = 'The convolutional module from the Conformer paper',
   author = 'Phil Wang',
