@@ -118,11 +118,11 @@ class Attention(nn.Module):
             dots.masked_fill_(~mask, mask_value)
 
         attn = dots.softmax(dim = -1)
-        attn = self.dropout(attn)
 
         out = einsum('b h i j, b h j d -> b h i d', attn, v)
         out = rearrange(out, 'b h n d -> b n (h d)')
-        return self.to_out(out)
+        out = self.to_out(out)
+        return self.dropout(out)
 
 class FeedForward(nn.Module):
     def __init__(
