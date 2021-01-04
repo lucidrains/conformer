@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
   name = 'conformer',
   packages = find_packages(),
-  version = '0.1.0',
+  version = '0.2.0',
   license='MIT',
   description = 'The convolutional module from the Conformer paper',
   author = 'Phil Wang',
@@ -11,6 +11,7 @@ setup(
   url = 'https://github.com/lucidrains/conformer',
   keywords = ['transformers', 'artificial intelligence', 'transformer'],
   install_requires=[
+      'einops',
       'torch'
   ],
   classifiers=[

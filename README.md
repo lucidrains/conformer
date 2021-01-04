@@ -28,6 +28,27 @@ x = torch.randn(1, 1024, 512)
 x = layer(x) + x
 ```
 
+1 Conformer Block
+
+```python
+import torch
+from conformer import ConformerBlock
+
+block = ConformerBlock(
+    dim = 512,
+    dim_head = 64,
+    heads = 8,
+    ff_mult = 4,
+    conv_expansion_factor = 2,
+    conv_kernel_size = 31,
+    attn_dropout = 0.,
+    ff_dropout = 0.,
+    conv_dropout = 0.
+)
+
+x = torch.randn(1, 1024, 512)
+block(x) # (1, 1024, 512)
+```
 ## Citations
 
 ```bibtex

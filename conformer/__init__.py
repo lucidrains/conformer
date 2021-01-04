@@ -1,1 +1,1 @@
-from conformer.conformer import ConformerConvModule
+from conformer.conformer import ConformerConvModule, ConformerBlock
