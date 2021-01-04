@@ -12,6 +12,8 @@ $ pip install conformer
 
 ## Usage
 
+The Conformer convolutional module, the main novelty of the paper
+
 ```python
 import torch
 from conformer import ConformerConvModule
