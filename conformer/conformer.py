@@ -86,7 +86,7 @@ class Attention(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x, context = None, mask = None, context_mask = None):
-        n, device, h, max_pos_emb, has_context = x.shape[-2], x.device, self.heads, self.max_pos_emb, exists(context)
+        device, h, max_pos_emb, has_context = x.device, self.heads, self.max_pos_emb, exists(context)
         context = default(context, x)
 
         q, k, v = (self.to_q(x), *self.to_kv(context).chunk(2, dim = -1))
@@ -95,8 +95,9 @@ class Attention(nn.Module):
         dots = einsum('b h i d, b h j d -> b h i j', q, k) * self.scale
 
         # shaw's relative positional embedding
-        seq = torch.arange(n, device = device)
-        dist = rearrange(seq, 'i -> i ()') - rearrange(seq, 'j -> () j')
+        q_seq = torch.arange(q.shape[-2], device = device)
+        k_seq = torch.arange(k.shape[-2], device = device)
+        dist = rearrange(q_seq, 'i -> i ()') - rearrange(k_seq, 'j -> () j')
         dist = dist.clamp(-max_pos_emb, max_pos_emb) + max_pos_emb
         rel_pos_emb = self.rel_pos_emb(dist).to(q)
         pos_attn = einsum('b h n d, n r d -> b h n r', q, rel_pos_emb) * self.scale
@@ -192,9 +193,9 @@ class ConformerBlock(nn.Module):
 
         self.post_norm = nn.LayerNorm(dim)
 
-    def forward(self, x, mask = None):
+    def forward(self, x, mask = None, context = None, context_mask = None):
         x = self.ff1(x) + x
-        x = self.attn(x, mask = mask) + x
+        x = self.attn(x, mask = mask, context = context, context_mask = context_mask) + x
         x = self.conv(x) + x
         x = self.ff2(x) + x
         x = self.post_norm(x)
