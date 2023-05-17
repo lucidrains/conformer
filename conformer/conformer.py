@@ -225,6 +225,7 @@ class Conformer(nn.Module):
         conv_dropout = 0.
     ):
         super().__init__()
+        self.dim = dim
         self.layers = nn.ModuleList([])
 
         for _ in range(depth):
