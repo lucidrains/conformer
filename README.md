@@ -49,17 +49,48 @@ block = ConformerBlock(
 )
 
 x = torch.randn(1, 1024, 512)
+
 block(x) # (1, 1024, 512)
 ```
+
+Conformer - just multiple `ConformerBlock` from above
+
+```python
+import torch
+from conformer import Conformer
+
+conformer = Conformer(
+    dim = 512,
+    depth = 12,          # 12 blocks
+    dim_head = 64,
+    heads = 8,
+    ff_mult = 4,
+    conv_expansion_factor = 2,
+    conv_kernel_size = 31,
+    attn_dropout = 0.,
+    ff_dropout = 0.,
+    conv_dropout = 0.
+)
+
+x = torch.randn(1, 1024, 512)
+
+conformer(x) # (1, 1024, 512)
+```
+
+## Todo
+
+- [ ] switch to a better relative positional encoding. shaw's is dated
+- [ ] flash attention with a better RPE
+
 ## Citations
 
 ```bibtex
 @misc{gulati2020conformer,
-    title={Conformer: Convolution-augmented Transformer for Speech Recognition},
-    author={Anmol Gulati and James Qin and Chung-Cheng Chiu and Niki Parmar and Yu Zhang and Jiahui Yu and Wei Han and Shibo Wang and Zhengdong Zhang and Yonghui Wu and Ruoming Pang},
-    year={2020},
-    eprint={2005.08100},
-    archivePrefix={arXiv},
-    primaryClass={eess.AS}
+    title   = {Conformer: Convolution-augmented Transformer for Speech Recognition},
+    author  = {Anmol Gulati and James Qin and Chung-Cheng Chiu and Niki Parmar and Yu Zhang and Jiahui Yu and Wei Han and Shibo Wang and Zhengdong Zhang and Yonghui Wu and Ruoming Pang},
+    year    = {2020},
+    eprint  = {2005.08100},
+    archivePrefix = {arXiv},
+    primaryClass = {eess.AS}
 }
 ```

@@ -85,7 +85,13 @@ class Attention(nn.Module):
 
         self.dropout = nn.Dropout(dropout)
 
-    def forward(self, x, context = None, mask = None, context_mask = None):
+    def forward(
+        self,
+        x,
+        context = None,
+        mask = None,
+        context_mask = None
+    ):
         n, device, h, max_pos_emb, has_context = x.shape[-2], x.device, self.heads, self.max_pos_emb, exists(context)
         context = default(context, x)
 
@@ -95,6 +101,7 @@ class Attention(nn.Module):
         dots = einsum('b h i d, b h j d -> b h i j', q, k) * self.scale
 
         # shaw's relative positional embedding
+
         seq = torch.arange(n, device = device)
         dist = rearrange(seq, 'i -> i ()') - rearrange(seq, 'j -> () j')
         dist = dist.clamp(-max_pos_emb, max_pos_emb) + max_pos_emb
@@ -198,4 +205,42 @@ class ConformerBlock(nn.Module):
         x = self.conv(x) + x
         x = self.ff2(x) + x
         x = self.post_norm(x)
+        return x
+
+# Conformer
+
+class Conformer(nn.Module):
+    def __init__(
+        self,
+        dim,
+        *,
+        depth,
+        dim_head = 64,
+        heads = 8,
+        ff_mult = 4,
+        conv_expansion_factor = 2,
+        conv_kernel_size = 31,
+        attn_dropout = 0.,
+        ff_dropout = 0.,
+        conv_dropout = 0.
+    ):
+        super().__init__()
+        self.layers = nn.ModuleList([])
+
+        for _ in range(depth):
+            self.layers.append(ConformerBlock(
+                dim = dim,
+                dim_head = dim_head,
+                heads = heads,
+                ff_mult = ff_mult,
+                conv_expansion_factor = conv_expansion_factor,
+                conv_kernel_size = conv_kernel_size,
+
+            ))
+
+    def forward(self, x):
+
+        for block in self.layers:
+            x = block(x)
+
         return x
